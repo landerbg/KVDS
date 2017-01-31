@@ -1,6 +1,6 @@
 <div ng-style="{fontSize : configuration.por_font + 'px'}">
 <div id="panel_container" style="margin-top: 70px;" >
-    {{por.ID}}
+
     <div  ng-repeat="por in st.visible_por | orderBy : st.sort_method.column : st.sort_method.new_first | filter : filter_por track by $index">
 
         <div class="panel"  ng-class="{'panel-info' : (por.PRINTERNAMESID == 2), 'panel-warning' : (por.PRINTERNAMESID == 3), 'panel-primary' : (por.PRINTERNAMESID == 1),   'selected_por': bump_por == por.ID}" ng-style="{width :configuration.por_width + 'px'}" style="float:left; margin:10px;">
