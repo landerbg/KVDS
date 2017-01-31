@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html ng-controller="TerminalController" >
+<head>
+    <title>Монитор за поръчки</title>
+
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="Content-Language" content="bg">
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" ng-href="bootstrap/css/bootstrap-theme-{{configuration.theme}}.min.css">
+    <link rel="stylesheet" href="style.css?v=1">
+    <script type="text/javascript" src="cordova.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body ng-style="{ width: configuration.display_width + 'px' }" id="test" >
+
+
+<nav class="navbar navbar-fixed-top navbar-default ng-cloak" >
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+
+    </div>
+
+    <div class="collapse navbar-collapse" collapse="navbarCollapsed" >
+        <ul class="nav navbar-nav">
+            <li class="dropdown open">
+                <button data-toggle="dropdown" class="btn btn-md navbar-btn  btn-primary dropdown-toggle "><span class="glyphicon glyphicon-th-large"></span>&nbsp;Меню</button>
+                <div class="dropdown-menu">
+                    <div class="container">
+                        <div class="btn-toolbar" role="toolbar">
+                            <div class="btn-group btn-group-md btn-group-justified btn-group-fill-height">
+                                <a ng-href="#" class="btn btn-primary"><span class="glyphicon glyphicon-film"></span> Монитор</a>
+                                <a ng-href="#void" class="btn btn-primary"><span class="glyphicon glyphicon-chevron-left"></span> Воид</a>
+                                <a ng-href="#summary" class="btn btn-primary" ><span class="glyphicon glyphicon-book"></span> Таблица</a>
+                                <a ng-href="#config" class="btn btn-primary" ><span class="glyphicon glyphicon-cog"></span> Нaстройки</a>
+                                <a class="btn btn-primary" ng-href="#sort" ><span class="glyphicon glyphicon-tasks"></span> Сорт</a>
+                                <a href="#" ng-click="clear_allpor()" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span> Рестарт</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <button class="btn btn-md navbar-lg btn-danger navbar-btn pull-left" ng-show="st.bump_isvisible" ng-click="st.bump_por=0;st.bump_isvisible=0;" style="margin-left: 3px;">Откажи!</button>
+        <button class="btn btn-md navbar-lg btn-success navbar-btn pull-left" ng-show="st.bump_isvisible" ng-click="bump();st.bump_isvisible=0;" style="margin-left: 3px;">Приключи!</button>
+        <button class="btn btn-md navbar-btn btn-primary pull-right"  ><span class="glyphicon glyphicon-refresh" ng-class="{'spin' : st.is_loading, 'offline' : !st.isonline, 'online' : st.isonline}"></span>  &nbsp;{{st.is_started.text}}</button>
+        <form class="navbar-form navbar-left pull-right" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control input-md" placeholder="Търсене..." ng-model="filter_por" ng-show="st.search_visible">
+            </div>
+        </form>
+        <button class="btn-primary btn btn-md navbar-btn pull-right " ng-click="toggle_search()" ><span class="glyphicon glyphicon-search"></span></button>
+        <button class="btn-primary btn btn-md navbar-btn pull-right  " ng-click="scrollright()" ><span class="glyphicon glyphicon-forward"></span></button>
+        <button class="btn-primary btn btn-md navbar-btn  pull-right " ng-click="scrollleft()" ><span class="glyphicon glyphicon-backward"></span></button>
+
+
+
+    </div>
+
+
+
+
+
+</nav>
+
+
+
+
+
+
+
+
+
+<data-ng-view>
+
+</data-ng-view>
+
+<script src="lib/jquery.js"></script>
+<script src="lib/angular/angular.min.js"></script>
+<script src="lib/angular/angular-route.min.js"></script>
+<script src="lib/angular/angular-animate.min.js"></script>
+<script src="lib/ui-bootstrap.min.js"></script>
+<script src="lib/fastclick.js"></script>
+<script src="app.js"></script>
+<script src="js/controllers/TerminalController.js"></script>
+<script src="js/controllers/VoidController.js"></script>
+<script src="js/controllers/ConfigController.js"></script>
+<script src="js/controllers/SummaryController.js"></script>
+<script src="js/controllers/SortController.js"></script>
+<script src="js/controllers/ThemeController.js"></script>
+<script src="js/services/RefreshPor.js"></script>
+<script src="js/services/ConfigService.js"></script>
+<script src="js/services/StateService.js"></script>
+<script src="js/services/Misc.js"></script>
+<script type="text/javascript">
+
+    var app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1;
+    if ( app ) {
+        document.addEventListener('deviceready', function onDeviceReady() {
+            angular.bootstrap(document, ['KVDS']);
+        }, false);
+    } else {
+        angular.element(document).ready(function() {
+            angular.bootstrap(document, ['KVDS']);
+        });
+    }
+
+
+    //TOVA DA SE TESTVA DALI RABOTI OK ZA PFONEGAP
+</script>
+
+</body>
+</html>
+

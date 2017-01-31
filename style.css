@@ -1,0 +1,113 @@
+
+
+.spin {
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+@keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+}
+
+.marked
+{
+    background-color: lemonchiffon;
+
+}
+
+.online
+{
+    color:greenyellow;
+}
+.offline
+{
+    color:red;
+}
+.first_alert {
+    background-color: peru;
+}
+
+.second_alert
+{
+    background-color: indianred;
+}
+
+.big_hand
+{
+    color: lemonchiffon;
+
+}
+
+.test
+{
+    background-color: salmon;
+}
+.panel-body
+{
+
+    overflow-y:scroll;
+}
+
+
+.ng-invalid.ng-dirty {border : 1px solid darkred; }
+
+.dropdown-menu li a
+{
+    font-size: large;
+}
+
+input.ng-invalid.ng-dirty {background-color : darksalmon;}
+
+
+
+.storno {
+    background-color: palevioletred;
+
+}
+
+.btn-group-fill-height .btn {
+    white-space: normal;
+}
+
+.tablet_nav {
+    display: none;
+}
+
+@media  (min-width: 768px) {
+
+    .tablet_nav {
+        display: block;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

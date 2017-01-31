@@ -1,0 +1,143 @@
+<div class="pull-left container" style="margin-top : 70px;">
+
+
+
+
+
+
+ <form role="form" name="config_form" novalidate style="padding: 5px; border: 1px solid grey;">
+     <fieldset>
+         <legend>Системни настройки</legend>
+    <div class="row">
+    <div class="col-sm-4">
+    <div class="form-group">
+
+
+        <label for="porwidth">Широчина на поръчката</label>
+        <input  type="number" class="form-control input-sm" name="porwidth" ng-min="100" ng-max="400" ng-model="configuration.por_width" id="porwidth" required>
+
+        <p class="text-danger" ng-show="config_form.porwidth.$dirty && config_form.porwidth.$invalid">Въведете число между 100 и 400</p>
+    </div>
+        <div class="checkbox">
+            <label><input type="checkbox" ng-model="configuration.por_overflow"> Преливащо съдържание</label>
+
+        </div>
+    <div class="form-group" >
+        <label>Височина на поръчка</label>
+        <input type="number" class="form-control input-sm" ng-model="configuration.por_height" name="porheight" ng-min="100" ng-max="1000" required>
+
+        <p class="text-danger" ng-show="config_form.porheight.$dirty && config_form.porheight.$invalid">Въведете число между 100 и 1000</p>
+    </div>
+    <div class="form-group">
+            <label>Шрифт за визуализация на поръчките</label>
+
+            <input type="number" class="form-control input-sm" ng-model="configuration.por_font" name="por_font" required ng-min="8" ng-max="36">
+            <p class="text-danger" ng-show="config_form.refresh_interval.$invalid">Моля въведете число между 8 и 36</p>
+     </div>
+    <div class="form-group" >
+        <label>Метод на разположение на екрана</label>
+        <select class="form-control" ng-model="configuration.display_width" name="display_width">
+            <option value="">Вертикално</option>
+            <option value="99999" selected>Хоризонтално</option>
+
+</select>
+    </div>
+    <div class="form-group">
+        <label>Първи алерт</label>
+
+       <input type="number" class="form-control input-sm" ng-model="configuration.time_firstalert" name="time_firstalert" ng-min="30" ng-max="3600" required>
+        <p class="text-danger" ng-show="config_form.time_firstalert.$dirty && config_form.time_firstalert.$invalid">Въведете закъснението в секунди в диапазона 30 - 3600</p>
+
+    </div>
+    <div class="form-group">
+    <label>Втори алерт</label>
+ <input type="number" class="form-control input-sm" ng-model="configuration.time_secondalert" name="time_secondalert" ng-min="30" ng-max="3600" required>
+        <p class="text-danger" ng-show="config_form.time_secondalert.$dirty && config_form.time_secondalert.$invalid">Въведете закъснението в секунди в диапазона 30 - 3600</p>
+
+    </div>
+
+        <div class="form-group">
+            <label>Интервал на опресняване в милисекунди</label>
+            <input type="number" class="form-control input-sm" ng-model="configuration.refresh_interval" name="refresh_interval" required ng-min="1000" ng-max="60000">
+            <p class="text-danger" ng-show="config_form.refresh_interval.$invalid">Моля въведете число между 1000 и 60000</p>
+        </div>
+
+        </div>
+
+        <div class=col-sm-4>
+            <div class="form-group">
+                <label>Път до KVD сървъра</label>
+                <input type="url" placeholder="Ползва се този по подразбиране" class="form-control input-sm" ng-model="configuration.server_url" name="server_url">
+
+            </div>
+            <div class="form-group">
+                <label>Път до база данни</label>
+                <input type="text" class="form-control input-sm" ng-model="configuration.database_path" name="database_path" required>
+
+
+                <p class="text-danger" ng-show="config_form.database_path.$invalid">Въведете валиден път за връзка с базата данни </p>
+            </div>
+         <div class="form-group">
+                            <label for="printers">Използвани принтери </label>
+                            <select multiple ng-model="configuration.selected_printers" size="5" ng-options="act.ID + ' ' + act.PRINTERNAME for act in configuration.used_printers" class="form-control" id="printers">
+                            </select>
+         </div>
+            <button class="btn btn-sm btn-info" ng-click="check_printers()"><span class="glyphicon glyphicon-search" > Проверка връзка: </span></button>
+
+
+            </div>
+
+         <div class=col-sm-4>
+
+             <div class="form-group">
+                 <label>Тема на визуализация</label>
+                 <select  ng-model="configuration.theme"  class="form-control" >
+                     <option value="1">Тема 1</option>
+                     <option value="2">Тема 2</option>
+                     <option value="4">Тема 4</option>
+                     <option value="5">Тема 5</option>
+                     <option value="7">Тема 7</option>
+                     <option value="9">Тема 9</option>
+                     <option value="12">Тема 12</option>
+                     <option value="13">Тема 13</option>
+
+                 </select>
+
+             </div>
+
+
+             <div class="form-group">
+                 <label>Звук за сигнализация</label>
+                 <select  ng-model="configuration.ring_number" ng-change="play_sound(configuration.ring_number + '.mp3')" class="form-control" >
+                     <option value="1">Звук 1</option>
+                     <option value="2">Звук 2</option>
+                     <option value="3">Звук 3</option>
+                 </select>
+
+
+             </div>
+
+             <div class="checkbox">
+                 <label><input type="checkbox" ng-model="configuration.is_app" ng-change=!configuration.is_app>Таблет режим (Спира гасенето на дисплея и добавя звук)</label>
+
+             </div>
+             </div>
+    </div>
+         </fieldset>
+     </form>
+
+
+    <div class="row" style="margin-top:10px;margin-bottom:10px;">
+        <div class="col-sm-6">
+            <button class="btn btn-primary btn-md"  ng-click="save_config()" ng-disabled="config_form.$dirty && config_form.$invalid">Запис конфигурация</button>
+            <button class="btn btn-danger btn-md" ng-click="reset_config()">По подразбиране</button>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+

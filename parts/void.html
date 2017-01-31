@@ -1,0 +1,24 @@
+<div id="panel_container2" style="margin-top : 70px;">
+    <div  ng-repeat="por in st.bumped_por | limitTo : 10 track by $index " >
+        <div class="panel" ng-class="{'panel-danger' : por.STORNO == 1, 'panel-info' : por.STORNO ==0}" ng-style = "{width :configuration.por_width + 'px'}" style="float:left; margin:10px;" >
+            <div class="panel-heading">
+                <p class="panel-title">Маса: <span class="badge">{{por.MACA}}</span><strong class="pull-right">{{por.DTPOR}}</strong></p>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="line in por.SDR track by $index"  ng-class="{'ready' : st.lineStyle[line.ID] == 1, 'notready' :st.lineStyle[line.ID] == 0}">
+                        <span class="badge" >{{line.KOL}}</span>
+                        <strong>{{line.ARTIKUL}}</strong>
+                        <p class="small text-success" ng-show="line.NOTE"><<< {{line.NOTE}}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer">
+                <strong>{{por.NAME}}</strong>
+                <br>
+                <button class="btn btn-block btn-success" ng-click="void_por(por.ID)">Върни</button>
+
+            </div>
+        </div>
+    </div>
+</div>

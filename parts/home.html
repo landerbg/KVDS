@@ -1,0 +1,30 @@
+<div ng-style="{fontSize : configuration.por_font + 'px'}">
+<div id="panel_container" style="margin-top: 70px;" >
+    {{por.ID}}
+    <div  ng-repeat="por in st.visible_por | orderBy : st.sort_method.column : st.sort_method.new_first | filter : filter_por track by $index">
+
+        <div class="panel"  ng-class="{'panel-info' : (por.PRINTERNAMESID == 2), 'panel-warning' : (por.PRINTERNAMESID == 3), 'panel-primary' : (por.PRINTERNAMESID == 1),   'selected_por': bump_por == por.ID}" ng-style="{width :configuration.por_width + 'px'}" style="float:left; margin:10px;">
+            <div class="panel-heading" ng-click="mark_por(por.ID)" >
+
+                <p style="text-align: center"><span class="pull-left" style="font-size: larger">{{$index+1}} / {{st.visible_por.length}}</span><span class="pull-right" style="font-size: larger">{{por.COUNTER | secondsToDateTime | date:'HH:mm:ss'}}</span><span class="glyphicon glyphicon-hand-up"></span> </p>
+
+            </div>
+            <div class="panel-body"  ng-style="configuration.por_overflow === true ? {minHeight : configuration.por_height + 'px'} : {maxHeight : configuration.por_height + 'px', minHeight : configuration.por_height + 'px'}" ng-class="{'storno' : por.STORNO == 1, 'marked': st.bump_por == por.ID}">
+                <ul class="list-group">
+                    <li  class="list-group-item " ng-repeat="line in por.SDR track by $index" ng-click="ready_line(line.ID)" ng-class="{'list-group-item-warning' : st.lineStyle[line.ID] === 1, 'list-group-item-default' : st.lineStyle[line.ID] === 0, 'list-group-item-success' :st.lineStyle[line.ID] === 2}">
+
+                        <p><span class="badge" style="font-size: larger">{{line.KOL}}</span> &nbsp;&nbsp;&nbsp; {{line.ARTIKUL | uppercase}}</p>
+                        <p class="small text-danger" ng-show="line.NOTE"><<< {{line.NOTE}}</p>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="panel-footer" ng-class="{ 'first_alert' : por.COUNTER > configuration.time_firstalert &&  por.COUNTER < configuration.time_secondalert, 'second_alert' : por.COUNTER > configuration.time_secondalert}">
+                <p><span >{{por.NAME}}</span> <span class="pull-right"> {{por.PRINTERNAME}}</span></p>
+
+                <p>Маса: <span class="badge">{{por.MACA}}</span>, Бр: <span class="badge">{{por.SDR.length}}</span><strong class="pull-right">{{por.DTPOR}}</strong></p>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+<div  style="margin-top : 70px; width : 500px;" class="pull-left">
+
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-6">
+<table class="table table-striped table-hover table-bordered">
+        <tr ng-repeat="line in summary | orderBy:'art'">
+            <td>{{line.artnomer}}</td>
+            <td >{{line.art}}</td>
+            <td>{{line.kol}}</td>
+            <td><button class="btn btn-xs btn-primary" ng-click="get_rechsdr(line.artnomer);" >Рецепта</button></td>
+        </tr>
+    </table>
+        </div>
+        <div class="col-sm-6">
+            <table class="table table-striped table-hover table-bordered">
+            <tr ng-repeat="sdr in rechsdr">
+                <td >{{sdr.OTARTIKUL}}</td>
+                <td>{{sdr.OTKOL}}</td>
+                <td>{{sdr.OTTYPEMEASURE}}</td>
+            </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Button trigger modal -->
+
+</div>
+    </div>
