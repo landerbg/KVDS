@@ -35,13 +35,13 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
     $scope.toggle_search = function () {
         $scope.filter_por = "";
         $scope.st.search_visible = !$scope.st.search_visible;
-    }
+    };
 
 
     $scope.change_sort = function (sort) {
         $scope.st.sort_method.column = sort;
         $log.info($scope.st.sort_method);
-    }
+    };
 
     $scope.refresh = function () {
         if (!$scope.st.is_started.condition)
@@ -104,12 +104,11 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
                 $log.error(error);
                 $scope.misc.setTimeout($scope, $scope.refresh, $scope.configuration.refresh_interval);
             });
-    }
+    };
 
     $scope.start_app = function () {
 
         if ($scope.st.is_started.condition === false) {
-
             $scope.st.is_started.condition = true;
             $scope.st.is_started.text = 'Онлайн';
             $log.info('Стартирам приложението');
@@ -122,10 +121,19 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
 
             }
             else {
-                $scope.ring = '/android_asset/www/' + $scope.ring; //Така е пътя при Phonegap build-a
 
+
+
+                // Play audio
+
+                $scope.ring = '/android_asset/www/' + $scope.ring; //Така е пътя при Phonegap build-a
                 window.plugins.insomnia.keepAwake(); //Настройва екрана да не се гаси само ако има поръчки
-                $scope.sound = new Media($scope.ring);
+                $scope.sound = new Media($scope.ring,
+                    // success callback
+                    function () { console.log("playAudio():Audio Success"); },
+                    // error callback
+                    function (err) { console.log("playAudio():Audio Error: " + err); }
+                );
 
             }
 
@@ -152,7 +160,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         var responsePromise = $http.post($scope.server_url + '/scripts/index.php/void', {
             id: id,
             database: $scope.configuration.database_path
-        })
+        });
         responsePromise.success(function (data, status, headers, config) {
             $log.info(data);
             if (data == 1) {//php скрипта връща 1 при успех
@@ -168,10 +176,10 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         responsePromise.error(function (data, status, headers, config) {
             $scope.misc.toast(data, 'danger', 3000);
         });
-    }
+    };
 
     $scope.check_printers = function () {
-        var responsePromise = $http.post($scope.server_url + '/scripts/index.php/load_printers', {database: $scope.configuration.database_path})
+        var responsePromise = $http.post($scope.server_url + '/scripts/index.php/load_printers', {database: $scope.configuration.database_path});
         responsePromise.success(function (data, status, headers, config) {
             if (angular.isArray(data)) {//Ако върне масив от принтери значи е успешна комуникацията
                 $scope.configuration.used_printers = data;
@@ -186,7 +194,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         responsePromise.error(function (data, status, headers, config) {
             $scope.misc.toast(data, 'danger', 4000);
         });
-    }
+    };
 
 
     $scope.mark_por = function (id) {
@@ -199,7 +207,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
             $scope.st.bump_isvisible = 1;
             $log.info($scope.st.bump_por);
         }
-    }
+    };
 
     $scope.bump = function () {
         $scope.finish_por($scope.st.bump_por);
@@ -214,14 +222,14 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         if ($scope.st.position < $scope.configuration.por_width * $scope.st.visible_por.length - 500)
             $scope.st.position += 600;
         console.log($scope.st.position);
-    }
+    };
 
     $scope.scrollleft = function () {
         $("html, body").animate({scrollLeft: $scope.st.position - 500}, 200);
         if ($scope.st.position > 499)
             $scope.st.position -= 600;
         console.log($scope.st.position);
-    }
+    };
 
     $scope.ready_line = function (id) {
         if ($scope.st.lineStyle[id] === 1) {
@@ -231,7 +239,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
             $scope.edit_line(id, 0);
         }
         else $scope.edit_line(id, 1);
-    }
+    };
 
     $scope.clear_allpor = function () {
         if (confirm("Желаете ли да приключите всички видими поръчки ?")) {
@@ -249,7 +257,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         }
 
 
-    }
+    };
 
 
 
@@ -258,7 +266,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
             porid: id,
             database: $scope.configuration.database_path,
             printers: $scope.configuration.selected_printers
-        })
+        });
         //$log.info($scope.configuration.selected_printers);
         responsePromise.success(function (data, status, headers, config) {
             $log.info(data);
@@ -277,13 +285,13 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
             $scope.misc.toast(data, 'danger', 3000);
         });
 //DA SE NAPRAVI PROVERKA DALI E MINALO VSICHKO OK !
-    }
+    };
     $scope.edit_line = function (id, mistralt_status) {
         var responsePromise = $http.post($scope.server_url + '/scripts/index.php/edit', {
             porsdrid: id,
             mistralt_status: mistralt_status,
             database: $scope.configuration.database_path
-        })
+        });
         responsePromise.success(function (data, status, headers, config) {
             $log.info(data);
             if (data == 1) {
