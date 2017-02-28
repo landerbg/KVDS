@@ -16,27 +16,27 @@ app.controller('ConfigController', function ($scope, Misc, StateService) {
     }
     $scope.save_config = function () {
         $scope.msg = $scope.configuration.saveConfiguration();
-        $scope.config_saved = false;
-
-        $scope.misc.toast("Настройките са запазени успешно.", "success", 3000);
         $scope.state.max_porid = 0;
         $scope.state.visible_por = [];
         $scope.state.lineStyle = [];
         $scope.state.bumped_por = [];
-        Misc.cancelTimeout();
+        $scope.misc.cancelTimeout();
+        $scope.config_saved = false;
+        $scope.misc.toast("Настройките са запазени успешно.", "success", 3000);
+
     }
     $scope.reset_config = function () {
         if (confirm("Желаете ли да Нулирате настройките!")) {
             $scope.msg = $scope.configuration.resetConfiguration();
             $scope.config_saved = false;
-            $scope.misc.toast("Настройките са по подразбиране!", "warning", 3000);
             $scope.state.max_porid = 0;
             $scope.state.visible_por = [];
             $scope.state.lineStyle = [];
             $scope.state.bumped_por = [];
+            $scope.misc.cancelTimeout();
+            $scope.misc.toast("Настройките са по подразбиране!", "warning", 3000);
 
 
-            Misc.cancelTimeout();//Towa da se proweri dali spira функцията която тегли поръчки
         }
     }
     $scope.save_printers = function () {

@@ -150,6 +150,7 @@ app.controller('TerminalController', function ($scope, $http, $interval, $log, $
         $scope.st.is_started.condition = false;
         $scope.st.is_started.text = 'Спрян';
         $log.info('Спирам приложението');
+
         $scope.misc.cancelTimeout();
     };
 

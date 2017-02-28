@@ -8,7 +8,7 @@ app.factory('ConfigService', function () {
         conf.printers = 2;
         conf.por_width = 210;
         conf.por_height = 250;
-        conf.por_overflow = false;
+        conf.por_overflow = true;
         conf.time_firstalert = 420;
         conf.time_secondalert = 600;
         conf.display_width = 99999;
